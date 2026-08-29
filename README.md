@@ -46,7 +46,12 @@ giving a single at-a-glance view of ship status.
 - Servo motor (scanning mechanism)
 - 20x4 character LCD
 - CAN transceivers (MCP2551)
-
+## Flow Diagram
+flowchart TD
+    A["ECU1: Distance node<br/>HC-SR04 + servo scan"] -->|CAN1 bus<br/>0x102, 0x103| C["Receiver node<br/>Listens on CAN1 + CAN2"]
+    B["ECU2: Environment node<br/>Temp, gas, flame"] -->|CAN2 bus<br/>0x201, 0x203, 0x204| C
+    C --> D["LCD display<br/>20x4 status view"]
+    C --> E["UART log<br/>Serial terminal output"]
 ## Tech Stack
 - Embedded C
 - LPC21xx CAN2 peripheral (polling-based RX/TX)
